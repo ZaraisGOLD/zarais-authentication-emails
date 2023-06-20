@@ -113,7 +113,7 @@ const updatePassword = catchError(async(req, res) => {
     const hashPassword = await bcrypt.hash(password, 10)
     const body = {password:hashPassword}
     const user = await User.update(body, {where: {id:userCode.userId}})
-    if(user === 0) return res.sendStatus(404)
+    if(user[0] === 0) return res.sendStatus(404)
     await userCode.destroy()
     return res.json(user)
 })
